@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>ASCII Checksum</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+        <style>
+            body {
+	            font-family: Consolas,monaco,monospace; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Checksum</h3>
+            <form id="myform">
+                <div class="form-group">
+                        <label>ASCII Number: </label>
+                        <input class="form-control" type="text" name="input" placeholder="Input here..." />
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Input
+                        </button>
+                    </h5>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <thead class="thead-dark">
+                                <th>#</th>
+                                <th>ASCII</th>
+                                <th>Binary</th>
+                            </thead>
+                            <tbody class="result">
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Checksum 8-Bit
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Carry Remove</th>
+                                <td class="carry_remove_8bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Inverse</th>
+                                <td class="inverse_8bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Result</th>
+                                <td class="result_8bit"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Checksum 16-Bit
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Carry Remove</th>
+                                <td class="carry_remove_16bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Inverse</th>
+                                <td class="inverse_16bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Result</th>
+                                <td class="result_16bit"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            
+            <h3>Huffman</h3>
+            <form id="formHuffman">
+                <div class="form-group">
+                    <label>ASCII Number: </label>
+                    <input class="form-control" type="text" name="input" placeholder="Input here..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOneHuffman">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneHuffman" aria-expanded="true" aria-controls="collapseOneHuffman">
+                        Langkah 1
+                        </button>
+                    </h5>
+                    </div>
+                
+                    <div id="collapseOneHuffman" class="collapse show" aria-labelledby="headingOneHuffman" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <thead class="thead-dark">
+                                <th>#</th>
+                                <th>ASCII</th>
+                                <th>Total</th>
+                            </thead>
+                            <tbody class="resultHuffman">
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwoHuffman">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoHuffman" aria-expanded="false" aria-controls="collapseTwoHuffman">
+                        Langkah 2
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseTwoHuffman" class="collapse" aria-labelledby="headingTwoHuffman" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="langkah_2">
+                            
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Langkah 3
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Carry Remove</th>
+                                <td class="carry_remove_16bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Inverse</th>
+                                <td class="inverse_16bit"></td>
+                            </tr>
+                            <tr>
+                                <th>Result</th>
+                                <td class="result_16bit"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <h3>Vigenere</h3>
+            <form id="formVigenere">
+                <div class="form-group">
+                    <label>Plain text: </label>
+                    <input class="form-control plain" type="text" name="decrypted" placeholder="Plain text..." />
+                </div>
+                <div class="form-group">
+                    <label>Chiper text: </label>
+                    <input class="form-control chiper" type="text" name="encrypted" placeholder="Chiper text..." />
+                </div>
+                <div class="form-group">
+                    <label>Key: </label>
+                    <input class="form-control" type="text" name="key" placeholder="Key text..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+
+            <h3>Caesar</h3>
+            <form id="formCaesar">
+                <div class="form-group">
+                    <label>Plain text: </label>
+                    <input class="form-control plainCaesar" type="text" name="decrypted" placeholder="Plain text..." />
+                </div>
+                <div class="form-group">
+                    <label>Chiper text: </label>
+                    <input class="form-control chiperCaesar" type="text" name="encrypted" placeholder="Chiper text..." />
+                </div>
+                <div class="form-group">
+                    <label>Key: </label>
+                    <input class="form-control" type="text" name="key" placeholder="Key text..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+
+            <h3>SHA-1</h3>
+            <form id="formSHA">
+                <div class="form-group">
+                    <label>Plain text: </label>
+                    <input class="form-control plainSHA" type="text" name="decrypted" placeholder="Plain text..." />
+                </div>
+                <div class="form-group">
+                    <label>Chiper text: </label>
+                    <input class="form-control chiperSHA" type="text" name="encrypted" placeholder="Chiper text..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+
+            <h3>MD5</h3>
+            <form id="formMD5">
+                <div class="form-group">
+                    <label>Plain text: </label>
+                    <input class="form-control plainMD5" type="text" name="decrypted" placeholder="Plain text..." />
+                </div>
+                <div class="form-group">
+                    <label>Chiper text: </label>
+                    <input class="form-control chiperMD5" type="text" name="encrypted" placeholder="Chiper text..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+
+            <h3>Credit Card</h3>
+            <form id="formCreditCard">
+                <div class="form-group">
+                    <label>Plain text: </label>
+                    <input class="form-control plainMD5" type="text" name="input" placeholder="Input..." />
+                </div>
+                <button type="submit" class="btn btn-primary">Check</button>
+            </form>
+            <br/>
+            <div class="card">
+                <div class="card-header" id="headingOneCC">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneCC" aria-expanded="true" aria-controls="collapseOneCC">
+                    Hasil
+                    </button>
+                </h5>
+                </div>
+            
+                <div id="collapseOneCC" class="collapse show" aria-labelledby="headingOneCC" data-parent="#accordionExample">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Digit</th>
+                            <td class="digitCC"></td>
+                        </tr>
+                        <tr>
+                            <th>Angka Urutan Ganjil</th>
+                            <td class="indexOdd"></td>
+                        </tr>
+                        <tr>
+                            <th>Angka Urutan Genap</th>
+                            <td class="indexEven"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p>Urutan ganjil dikalikan dengan 2 jika hasilnya 2 digit ditambahkan antar digit</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Kalkulasi Urutan Ganjil</th>
+                            <td class="oddResult"></td>
+                        </tr>
+                        <tr>
+                            <th>Hasil</th>
+                            <td class="totalOdd"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p>Penjumlahan urutan genap</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Kalkulasi Urutan Genap</th>
+                            <td class="evenResult"></td>
+                        </tr>
+                        <tr>
+                            <th>Hasil</th>
+                            <td class="totalEven"></td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <p>Hasil ganjil + Hasil Genap</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Hasil</th>
+                            <td class="oddPlusEven"></td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <p>Total hasil modulus 10</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Modulus</th>
+                            <td class="modulus"></td>
+                        </tr>
+                        <tr>
+                            <th>Status Valid</th>
+                            <td class="validasi"></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+        <script>
+        $(document).ready(function(){
+            $("#myform").on('submit', function(e){
+                e.preventDefault();
+                
+                var serialize = $(this).serializeArray();
+                
+                $.ajax({
+                    url: "checksum.php",
+                    type: "GET",
+                    data: {
+                        input: serialize[0].value
+                    }
+                })
+                .done(function(res){
+
+                    $(".result").empty()
+
+                    var result = res;
+                    console.log(result)
+                    result.input.map(function(item, index){
+                        return(
+                            $('.result').append(
+                                `
+                                    <tr>
+                                        <td>${index+1}</td>
+                                        <td>${item.ascii}</td>
+                                        <td>${item.binary}</td>
+                                    </tr>
+                                `
+                            )
+                        )
+                    })
+                    
+                    $('.result').append(
+                        `
+                            <tr>
+                                <td colspan="2">Total</td>
+                                <td>${result.total_bit}</td>
+                            </tr>
+                        `
+                    )
+
+                    $('.carry_remove_8bit').html(result.eight_bit_checksum.carry_remove + "");
+                    $('.inverse_8bit').html(result.eight_bit_checksum.inverse + "");
+                    $('.result_8bit').html(result.eight_bit_checksum.result.hex + " atau " + result.eight_bit_checksum.result.binary);
+                    
+                    $('.carry_remove_16bit').html(result.sixteen_bit_checksum.carry_remove + "");
+                    $('.inverse_16bit').html(result.sixteen_bit_checksum.inverse + "");
+                    $('.result_16bit').html(result.sixteen_bit_checksum.result.hex + " atau " + result.sixteen_bit_checksum.result.binary);
+
+                })
+            })
+
+            $('#formHuffman').on('submit', function(e){
+                e.preventDefault();
+                var serialize = $(this).serializeArray();
+                $.ajax({
+                    url: "huffman.php",
+                    type: "GET",
+                    data: {
+                        input_huffman: serialize[0].value
+                    }
+                })
+                .done(function(res) {
+                    // console.log(res)
+                    $(".resultHuffman").empty()
+                    $(".langkah_2").empty()
+
+                    var result = res;
+                    console.log(result)
+                    result.langkah_1.map(function(item, index){
+                        return(
+                            $('.resultHuffman').append(
+                                `
+                                    <tr>
+                                        <td>${index+1}</td>
+                                        <td>${item.ascii}</td>
+                                        <td>${item.total}</td>
+                                    </tr>
+                                `
+                            )
+                        )
+                    })
+
+                    result.langkah_2.map(function(item, index){
+                        return(
+                            $('.langkah_2').append(
+                                `
+                                    Step ${index+1}
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                ${item.map(function(item, index){
+                                                    return(
+                                                        `<th>${item.ascii +"."+item.total}</th>`
+                                                    )
+                                                })}
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                `
+                            )
+                        )
+                    })
+                })
+            })
+
+            $('#formVigenere').on('submit', function(e){
+                e.preventDefault();
+
+                var serialize = $(this).serializeArray();
+                console.log(serialize)
+                $.ajax({
+                    url: "vigenere.php",
+                    type: "GET",
+                    data: {
+                        decrypted: serialize[0].value,
+                        encrypted: serialize[1].value,
+                        key: serialize[2].value
+                    }
+                })
+                .done(function(res){
+                    console.log(res)
+                    if(res.type == 'chiper'){
+                        $('.plain').val(res.result+"");
+                    } else {
+                        $('.chiper').val(res.result+"");
+                    }
+                })
+            })
+
+            $('#formCaesar').on('submit', function(e){
+                e.preventDefault();
+
+                var serialize = $(this).serializeArray();
+                console.log(serialize)
+                $.ajax({
+                    url: "caesar.php",
+                    type: "GET",
+                    data: {
+                        decrypted: serialize[0].value,
+                        encrypted: serialize[1].value,
+                        key: serialize[2].value
+                    }
+                })
+                .done(function(res){
+                    console.log(res)
+                    if(res.type == 'chiper'){
+                        $('.plainCaesar').val(res.result+"");
+                    } else {
+                        $('.chiperCaesar').val(res.result+"");
+                    }
+                })
+            })
+
+            $('#formSHA').on('submit', function(e){
+                e.preventDefault();
+
+                var serialize = $(this).serializeArray();
+
+                $.ajax({
+                    url: "sha.php",
+                    type: 'GET',
+                    data: {
+                        decrypted: serialize[0].value
+                    }
+                })
+                .done(function(res){
+                    $('.chiperSHA').val(res.sha1)
+                })
+            })
+
+            $('#formMD5').on('submit', function(e){
+                e.preventDefault();
+
+                var serialize = $(this).serializeArray();
+
+                $.ajax({
+                    url: "md5.php",
+                    type: 'GET',
+                    data: {
+                        decrypted: serialize[0].value
+                    }
+                })
+                .done(function(res){
+                    $('.chiperMD5').val(res.md5)
+                })
+            })
+
+            $('#formCreditCard').on('submit', function(e){
+                e.preventDefault();
+
+                var serialize = $(this).serializeArray();
+
+                $.ajax({
+                    url: "creditcard.php",
+                    type: "GET",
+                    data: {
+                        input: serialize[0].value
+                    }
+                })
+                .done(function(res){
+                    $('.digitCC').html(res.digit + "")
+                    
+                    var indexOddLength = res.index_odd.length;
+
+                    $('.indexOdd').html(   
+                        res.index_odd.map(function(item, index){
+                            return(
+                                index != indexOddLength - 1 ? item + ", " : item
+                            )
+                        })
+                    )
+
+                    var indexEvenLength = res.index_even.length;
+
+                    $('.indexEven').html(   
+                        res.index_even.map(function(item, index){
+                            return(
+                                index != indexEvenLength - 1 ? item + ", " : item
+                            )
+                        })
+                    )
+                    
+                    $('.oddResult').html(   
+                        res.odd_result.map(function(item, index){
+                            return(
+                                index != res.odd_result.length - 1 ? item + " + " : item
+                            )
+                        })
+                    )
+
+                    $('.totalOdd').html(res.total_odd + "")
+
+                    $('.evenResult').html(   
+                        res.index_even.map(function(item, index){
+                            return(
+                                index != res.index_even.length - 1 ? item + " + " : item
+                            )
+                        })
+                    )
+
+                    $('.totalEven').html(res.total_even + "")
+                    $('.oddPlusEven').html(res.total_odd + " + " + res.total_even + " = " + res.odd_plus_even)
+                    $('.modulus').html(res.odd_plus_even + " mod 10 = " + res.odd_plus_even % 10)
+                    
+                    if(res.result){
+                        $('.validasi').html('Valid')
+                    } else {
+                        $('.validasi').html('Tidak Valid')
+                    }
+                })
+            })
+        })
+        </script>
+    </body>
+</html>
